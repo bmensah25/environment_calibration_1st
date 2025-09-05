@@ -1,0 +1,4 @@
+.idea
+simulation_outputs/
+simulations/*.log
+simulations/__pycache__/
