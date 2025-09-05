@@ -3,7 +3,7 @@
 from pathlib import Path
 import os
 
-VENV_PATH = '/home/tmh6260/my_environments/pytorch_test'
+#VENV_PATH = '/home/tmh6260/my_environments/pytorch_test'
 SITE='Nanoro'
 EXPERIMENT_LABEL='sample_experiment'
 
@@ -48,7 +48,8 @@ my_ep4_assets = None
 requirements = PROJECT_DIR / "requirements.txt"
 
 # Define Comps platform
-platform_name = "SLURM_LOCAL"#"Calculon"
+#platform_name = "SLURM_LOCAL"#"Calculon"
+platform_name = "CALCULON"
 priority = 'BelowNormal'
 node_group_private = 'idm_48cores'
 node_group = 'idm_abcd'

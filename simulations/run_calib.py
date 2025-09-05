@@ -3,6 +3,8 @@
 import os
 import sys
 import shutil
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -10,19 +12,25 @@ import torch
 from gpytorch.constraints import GreaterThan
 # from local directory
 import manifest as manifest
-sys.path.append("../calibration_common")
-# from calibration_common
-from batch_generators.turbo_thompson_sampling import TurboThompsonSampling 
-from emulators.GP import ExactGP   
-from bo import BO 
-from post_calibration_analysis import post_calibration_analysis
+
+# calibration_common is package. need to pip install -e . from calibration_common
+from calibration_common.batch_generators.turbo_thompson_sampling import TurboThompsonSampling
+from calibration_common.emulators.GP import ExactGP
+from calibration_common.bo import BO
+from calibration_common.post_calibration_analysis import post_calibration_analysis
+
 # from environment_calibration_common
-sys.path.append("../environment_calibration_common")
+REPO_ROOT = Path(__file__).resolve().parent.parent
+# go up one level to github directory
+env_calibra_common_dir = REPO_ROOT.parent / "environment_calibration_common"
+sys.path.append(str(env_calibra_common_dir))
+# all following imports are from environment_calibration_common
 from clean_all import clean_analyzers, clean_logs, clean_COMPS_ID
 from translate_parameters import translate_parameters
 from helpers import load_coordinator_df
 from my_func import my_func as myFunc
-sys.path.append("../environment_calibration_common/compare_to_data")
+# from environment_calibration_common/compare_to_data
+sys.path.append(str(env_calibra_common_dir/"compare_to_data"))
 from run_full_comparison import plot_allAge_prevalence,plot_incidence,compute_scores_across_site,save_rangeEIR,save_AnnualIncidence,plot_pfpr_microscopy 
 
 
@@ -33,7 +41,7 @@ exp_label = manifest.EXPERIMENT_LABEL
 ####################################
 
 output_dir = f"output/{exp_label}"
-best_dir = f"output/{exp_label}" 
+best_dir = f"output/{exp_label}"
 
 calib_coord = pd.read_csv(manifest.calibration_coordinator_path)
 
@@ -45,6 +53,10 @@ emulator_batch_size = int(calib_coord.at[Site, 'batch_size'])
 gp_max_eval = int(calib_coord.at[Site, 'max_eval'])
 failure_limit = int(calib_coord.at[Site, 'failure_limit'])
 success_limit = int(calib_coord.at[Site,'success_limit'])
+
+# Safety guard so that it won’t stop immediately after the initial Sobol design
+if gp_max_eval <= init_samples:
+    gp_max_eval = init_samples + max(1, emulator_batch_size)
 
 param_key=pd.read_csv("parameter_key.csv")
 
@@ -76,7 +88,7 @@ class Problem:
         wdir=os.path.join(f"{self.workdir}/LF_{self.n}")
         os.makedirs(wdir,exist_ok=True)
             
-        Y0=myFunc(X,wdir)
+        Y0=myFunc(X,wdir, self.n)
         # Clean up any non-score columns returned by myfunc
         ps = Y0['param_set']
         Y0 = Y0.filter(like='_score')
@@ -182,7 +194,7 @@ class Problem:
             clean_COMPS_ID()
         return torch.tensor(xc,dtype=torch.float64), torch.tensor(yc)
 
-problem = Problem(workdir=f"output/{exp_label}")
+problem = Problem(workdir=output_dir)
 
 # at beginning of workflow, cleanup all sbatch scripts for analysis
 clean_analyzers()

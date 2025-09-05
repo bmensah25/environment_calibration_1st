@@ -22,8 +22,8 @@ prevalence_comparison,TRUE,include a measure of prevalence in scoring?
 prevalence_comparison_reference,Nanoro_dhs_pfpr.csv,reference dataset for prevalence
 prevalence_comparison_frequency,monthly,"""monthly"" or ""annual"" (not tested)"
 prevalence_comparison_diagnostic,Microscopy,"""PCR"" or ""Microscopy"" or ""RDT"""
-prevalence_comparison_agebin,100,agebin (within prevealence_comparison_reference) to use for comparison. NA if PCR.
+prevalence_comparison_agebin,5,agebin (within prevealence_comparison_reference) to use for comparison. NA if PCR.
 incidence_comparison,TRUE,include a measure of clinical incidence in scoring?
 incidence_comparison_reference,routine_incidence_by_district.csv,reference dataset for incidence
 incidence_comparison_frequency,monthly,"""monthly"" or ""annual"""
-incidence_comparison_agebin,100,agebin (within incidence_comparison_reference) to use for comparison
+incidence_comparison_agebin,5,agebin (within incidence_comparison_reference) to use for comparison
