@@ -1,0 +1,5 @@
+,parameter,param_set,unit_value,emod_value,min,max,team_default,transformation,type
+0,Temperature_Shift,1.0,0.5672603271670227,0.6726032716702264,-5.0,5.0,,none,double
+1,CONST_Multiplier,1.0,0.23848676774650812,0.008088987084188185,-4.0,4.0,,log,double
+2,TEMPR_Multiplier,1.0,0.6985442786854854,38.757363796510965,-4.0,4.0,,log,double
+3,WATEV_Multiplier,1.0,0.7714575115565463,148.47731059023076,-4.0,4.0,,log,double

@@ -13,6 +13,7 @@ from gpytorch.constraints import GreaterThan
 # from local directory
 import manifest as manifest
 
+sys.path.append("../calibration_common")
 # calibration_common is package. need to pip install -e . from calibration_common
 from calibration_common.batch_generators.turbo_thompson_sampling import TurboThompsonSampling
 from calibration_common.emulators.GP import ExactGP
@@ -22,7 +23,7 @@ from calibration_common.post_calibration_analysis import post_calibration_analys
 # from environment_calibration_common
 REPO_ROOT = Path(__file__).resolve().parent.parent
 # go up one level to github directory
-env_calibra_common_dir = REPO_ROOT.parent / "environment_calibration_common"
+env_calibra_common_dir = REPO_ROOT / "environment_calibration_common"
 sys.path.append(str(env_calibra_common_dir))
 # all following imports are from environment_calibration_common
 from clean_all import clean_analyzers, clean_logs, clean_COMPS_ID

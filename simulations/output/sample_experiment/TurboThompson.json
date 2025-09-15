@@ -1,0 +1,13 @@
+{
+    "dim": 4,
+    "batch_size": 16,
+    "length": 0.125,
+    "length_min": 9.313225746154785e-10,
+    "length_max": 1.0,
+    "failure_counter": 2,
+    "failure_tolerance": 3,
+    "success_counter": 0,
+    "success_tolerance": 3,
+    "y_max": -2.527113073393022,
+    "n_candidates": 2000
+}

@@ -5,7 +5,7 @@ import os
 
 #VENV_PATH = '/home/tmh6260/my_environments/pytorch_test'
 SITE='Nanoro'
-EXPERIMENT_LABEL='sample_experiment'
+EXPERIMENT_LABEL='sample_experiment1'
 
 CURRENT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = CURRENT_DIR.parent
